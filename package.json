@@ -1,6 +1,6 @@
 {
   "name": "@normalized-db/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Sandro Schmid <saseb.schmid@gmail.com>",
   "license": "MIT",
   "description": "Core-module for related 'normalized-db'-libraries providing common models and utility functions as well as the `Schema` (implemented with `TypeScript`).",
@@ -15,6 +15,10 @@
     "ObjectDB",
     "NoSQL"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/normalized-db/core.git"
+  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
