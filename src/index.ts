@@ -1,3 +1,3 @@
 export * from './utility';
-export * from './models';
+export * from './model';
 export * from './schema';
