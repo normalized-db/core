@@ -1,7 +1,7 @@
 import { isNull } from '../../utility/object';
-import { IStoreConfig } from '../models/store-config-interface';
-import { IStoreTargetConfig } from '../models/store-target-config-interface';
-import { IStoreTargetItem } from '../models/store-target-item-interface';
+import { IStoreConfig } from '../model/store-config-interface';
+import { IStoreTargetConfig } from '../model/store-target-config-interface';
+import { IStoreTargetItem } from '../model/store-target-item-interface';
 
 export class StoreBuilder {
 

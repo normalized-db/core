@@ -1,5 +1,5 @@
-import { IStore } from './models/store-interface';
-import { IStoreTargetItem } from './models/store-target-item-interface';
+import { IStore } from './model/store-interface';
+import { IStoreTargetItem } from './model/store-target-item-interface';
 
 export interface ISchema {
   hasType(type: string): boolean;

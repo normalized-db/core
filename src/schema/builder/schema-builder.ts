@@ -1,4 +1,4 @@
-import { ISchemaConfig } from '../models/schema-config-interface';
+import { ISchemaConfig } from '../model/schema-config-interface';
 import { Schema } from '../schema';
 import { StoreBuilder } from './store-builder';
 

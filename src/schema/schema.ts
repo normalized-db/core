@@ -1,12 +1,12 @@
 import { deepClone } from '../utility/deep-clone';
 import { isNull } from '../utility/object';
-import { ISchemaConfig } from './models/schema-config-interface';
-import { ISchemaExpanded } from './models/schema-expanded-interface';
-import { IStoreConfig } from './models/store-config-interface';
-import { IStore } from './models/store-interface';
-import { IStoreTargetConfig } from './models/store-target-config-interface';
-import { IStoreTarget } from './models/store-target-interface';
-import { IStoreTargetItem } from './models/store-target-item-interface';
+import { ISchemaConfig } from './model/schema-config-interface';
+import { ISchemaExpanded } from './model/schema-expanded-interface';
+import { IStoreConfig } from './model/store-config-interface';
+import { IStore } from './model/store-interface';
+import { IStoreTargetConfig } from './model/store-target-config-interface';
+import { IStoreTarget } from './model/store-target-interface';
+import { IStoreTargetItem } from './model/store-target-item-interface';
 import { ISchema } from './schema-interface';
 
 export class Schema implements ISchema {
