@@ -34,12 +34,12 @@ also builds a `SchemaConfig`-object. The config object must implement the `ISche
 
 A schema may consist of three different kinds of object-store "types" or "stores" respectively:
 
- - "_defaults": Default configuration for every object-store
+ - `_defaults`: Default configuration for every object-store
  
- - "_[storeName]": Types prefixed with an underscore are handled as abstract types. The `_defaults`-store is also abstract. 
+ - `_[storeName]`: Types prefixed with an underscore are handled as abstract types. The `_defaults`-store is also abstract. 
    These stores can be used if two or more concrete stores share some configurations but no instances are needed.
  
- - "[storeName]": Concrete stores which either reuse the defaults only, derive from an abstract store or another
+ - `[storeName]`: Concrete stores which either reuse the defaults only, derive from an abstract store or another
    concrete store. Optionally defines or overrides specific configurations.
 
 If a type only needs the defaults define it by `[storeName]: true`, if it inherits from another store but does not
