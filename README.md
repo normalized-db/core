@@ -36,14 +36,15 @@ A schema may consist of three different kinds of object-store "types" or "stores
 
  - "_defaults": Default configuration for every object-store
  
- - "_[storeName]": Types with an underscore are handled as abstract types. The `_defaults`-store is also abstract. 
+ - "_[storeName]": Types prefixed with an underscore are handled as abstract types. The `_defaults`-store is also abstract. 
    These stores can be used if two or more concrete stores share some configurations but no instances are needed.
  
- - "[storeName]": Concrete stores which either just use the defaults, derive from an abstract store or another
-   concrete store or define or override specific configurations.
+ - "[storeName]": Concrete stores which either reuse the defaults only, derive from an abstract store or another
+   concrete store. Optionally defines or overrides specific configurations.
 
-If a type only needs the defaults, the value is just `true`
-A type-object defines the following options:
+If a type only needs the defaults define it by `[storeName]: true`, if it inherits from another store but does not
+have an own configuration define it by `[storeName]: "[parentStore]"`. More complex configurations may define the 
+following options:
 
  - `parent` (string): The abstract / concrete type from which this type should derive predefined configurations
  
@@ -51,23 +52,23 @@ A type-object defines the following options:
    field is used to identify objects of this type. If two objects have the same key they are assumed to be equal.
    The value must be a `ValidKey` (`number`, `string` or `Date`)
  
- - `targets` (string or IStoreTargetConfig): This is the most important option for (de)normalization. 
+ - `targets` (string or `IStoreTargetConfig`): This is the most important option for (de)normalization. 
    It defines which field of an object contains an object that should be (de)normalized into/from another type.
    The config value either is a `string` - then it must be the name of an explicitly declared concrete type or it is a
    `IStoreTargetConfig`-object which in return also declares the target type (`type`-option) and optionally the
-   `isArray` and `cascadeRemoval` boolean flags.  
+   `isArray` and `cascadeRemoval` boolean flags
  
  - `lastModified` (string): Like the `key`-option, this option optionally defines the object's field with a
    "last-modified"-timestamp. This is used for logging-functionality of data-stores to detect whether an object has
    changed or not
  
  - `autoKey` (boolean): If set to `true`, this option tells data stores to automatically generate an unique identifier
-   for new objects without a key.
+   for new objects without a key
    
-An example for such a `ISchemaConfig` could look like this:
+An example for such a `ISchemaConfig`-object for a simple blog could look like this:
 
-```ts
-{
+```typescript
+const schemaConfig: ISchemaConfig = {
   _defaults: {
     key: 'id',
     autoKey: true
@@ -98,9 +99,9 @@ An example for such a `ISchemaConfig` could look like this:
 }
 ```
 
-A possible input looks like this:
+A possible input for an array of articles looks like this:
 
-```ts
+```typescript
 const articles: Article[] = [
   {
     id: 1,
@@ -183,8 +184,16 @@ const articles: Article[] = [
 
 which then can be normalized using `normalizer.apply(articles, 'article')`. This will result in:
 
-```ts
-{
+```typescript
+const normalizer = new NormalizerBuilder()
+  .withSchemaConfig(schemaConfig)
+  .build();
+
+const result = normalizer.apply(articles, 'article');
+console.log(result);
+
+// prints…
+const output = {
   role: [
     {
       id: 1,
@@ -254,3 +263,10 @@ which then can be normalized using `normalizer.apply(articles, 'article')`. This
   ]
 }
 ```
+
+#### Design considerations
+Note that normalization is not the solution to everything. In fact, in many cases it would absolutely redundant to 
+normalize an object. Take the `user.role` from the example above - the roles are basically just a string, the only object
+which ever contains a role object is a user and probably it is not possible to edit the role's name. 
+In such a case the normalization overhead probably is not worth it. Basically it is recommended to design the schema
+rather passive, less can be more.
