@@ -28,7 +28,8 @@
     "build-prod": "tslint ./src/*.ts ./src/**/*.ts && WEBPACK_ENV=prod webpack",
     "build-all": "npm run build && npm run build-prod",
     "clean-build": "rm -rf lib/ && npm run build-all",
-    "test": "npm run build && ./node_modules/karma/bin/karma start ./karma.conf.js"
+    "test": "npm run build && ./node_modules/karma/bin/karma start ./karma.conf.js",
+    "build-and-publish": "npm run clean-build && npm publish"
   },
   "devDependencies": {
     "@types/chai": "4.0.2",
