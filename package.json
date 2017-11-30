@@ -1,6 +1,6 @@
 {
   "name": "@normalized-db/core",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "author": "Sandro Schmid <saseb.schmid@gmail.com>",
   "license": "MIT",
   "description": "Core-module for related 'normalized-db'-libraries providing common models and utility functions as well as the `Schema` (implemented with `TypeScript`).",
