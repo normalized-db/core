@@ -3,7 +3,8 @@
 Core-module for related "normalized-db"-libraries providing common models and utility 
 functions as well as the `Schema` (implemented with `TypeScript`).
 
-**Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
+ - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
+ - **Version**: 2.0.0
 
 ---
 
@@ -13,7 +14,7 @@ functions as well as the `Schema` (implemented with `TypeScript`).
 
 ## Installation
 
-Install using NPM: 
+Install using NPM:
 
     `npm install --save @normalized-db/core`
 
