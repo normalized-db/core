@@ -1,3 +1,3 @@
 import { ValidKey } from './valid-key';
 
-export declare type FetchCallback = (key: ValidKey, type: string) => Promise<any | any[]>;
+export declare type FetchCallback = (type: string, key: ValidKey) => Promise<any | any[]>;
