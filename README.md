@@ -11,6 +11,14 @@ functions as well as the `Schema` (implemented with `TypeScript`).
 
 ---
 
+## Installation
+
+Install using NPM: 
+
+    `npm install --save @normalized-db/core`
+
+---
+
 ## Usage
 
 Usage is only useful in combination with one of the feature-modules:
