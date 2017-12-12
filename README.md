@@ -4,21 +4,18 @@ Core-module for related "normalized-db"-libraries providing common models and ut
 functions as well as the `Schema` (implemented with `TypeScript`).
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.0.3
+ - **Version**: 2.1.0
 
----
+## Notes
 
-**Note**: This library is under active development.
-
----
+ - This library is under active development.
+ - To ease versioning equal version numbers are used for all modules.
 
 ## Installation
 
 Install using NPM:
 
-    `npm install --save @normalized-db/core`
-
----
+    npm install --save @normalized-db/core
 
 ## Usage
 
