@@ -19,10 +19,10 @@ export class RefsUtility {
   }
 
   public static getAll<Key extends ValidKey>(item: any, type: string): ValidKey[] {
-    return this.has(item, type) ? Array.from(item._refs[type]) : [];
+    return this.has(item, type) ? (Array.from(item._refs[type]) as Array<Key>) : [];
   }
 
   public static first<Key extends ValidKey>(item: any, type: string): ValidKey | null {
-    return this.has(item, type) ? item._refs[type].values().next().value : null;
+    return this.has(item, type) ? (item._refs[type].values().next().value) as Key : null;
   }
 }
