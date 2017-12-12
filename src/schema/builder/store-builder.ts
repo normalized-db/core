@@ -7,18 +7,12 @@ export class StoreBuilder {
 
   constructor(private parent?: string,
               private key?: string,
-              private lastModified?: string,
               private autoKey?: boolean,
               private targets?: IStoreTargetConfig) {
   }
 
   public setKey(key: string): StoreBuilder {
     this.key = key;
-    return this;
-  }
-
-  public setLastModified(lastModified: string): StoreBuilder {
-    this.lastModified = lastModified;
     return this;
   }
 

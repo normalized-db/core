@@ -127,11 +127,6 @@ export class Schema implements ISchema {
       targets: this.expandTargets(targets)
     };
 
-    const lastModified = typeConfig.lastModified || parent.lastModified;
-    if (lastModified) {
-      result.lastModified = lastModified;
-    }
-
     return result;
   }
 

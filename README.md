@@ -67,10 +67,6 @@ following options:
    `IStoreTargetConfig`-object which in return also declares the target type (`type`-option) and optionally the
    `isArray` and `cascadeRemoval` boolean flags.
  
- - `lastModified` (string): Like the `key`-option, this option optionally defines the object's field with a
-   "last-modified"-timestamp. This is used for logging-functionality of data-stores to detect whether an object has
-   changed or not.
- 
  - `autoKey` (boolean): If set to `true`, this option tells data stores to automatically generate an unique identifier
    for new objects without a key.
    

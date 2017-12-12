@@ -16,11 +16,6 @@ export class SchemaBuilder {
     return this;
   }
 
-  public setDefaultLastModified(lastModified: string): SchemaBuilder {
-    this.defaultStore.setLastModified(lastModified);
-    return this;
-  }
-
   public setDefaultAutoKey(autoKey: boolean): SchemaBuilder {
     this.defaultStore.setAutoKey(autoKey);
     return this;
