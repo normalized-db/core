@@ -83,6 +83,7 @@ const schemaConfig: ISchemaConfig = {
   role: true,
   user: {
     key: 'userName',
+    autoKey: false,
     targets: {
       role: 'role'
     }
