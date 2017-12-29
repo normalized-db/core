@@ -196,7 +196,7 @@ const result = normalizer.apply('article', articles);
 console.log(result);
 
 // prints…
-const output = {
+const output: NormalizedData = {
   role: [
     {
       id: 1,
