@@ -1,3 +1,5 @@
+import { ValidKey } from './valid-key';
+
 export interface KeyMap {
-  [type: string]: Map<any, number>;
+  [type: string]: Map<ValidKey, number>;
 }
