@@ -16,3 +16,6 @@ tslint.json
 
 webpack.config.js
 karma.conf.js
+
+ndb-icon.png
+ndb-icon.xcf
