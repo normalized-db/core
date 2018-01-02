@@ -4,7 +4,7 @@ Core-module for related "normalized-db"-libraries providing common models and ut
 functions as well as the `Schema` (implemented with `TypeScript`).
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.3.0
+ - **Version**: 2.3.1
 
 ## Notes
 
