@@ -1,5 +1,6 @@
 import { isNull } from '../../utility/object';
 import { IStoreConfig } from '../model/store-config-interface';
+import { IStoreLogConfig } from '../model/store-log-config-interface';
 import { IStoreTargetConfig } from '../model/store-target-config-interface';
 import { IStoreTargetItem } from '../model/store-target-item-interface';
 
@@ -8,7 +9,8 @@ export class StoreBuilder {
   constructor(private parent?: string,
               private key?: string,
               private autoKey?: boolean,
-              private targets?: IStoreTargetConfig) {
+              private targets?: IStoreTargetConfig,
+              private logging?: IStoreLogConfig) {
   }
 
   public setKey(key: string): StoreBuilder {
@@ -61,6 +63,11 @@ export class StoreBuilder {
     return this;
   }
 
+  public setLogging(logging: IStoreLogConfig): StoreBuilder {
+    this.logging = logging;
+    return this;
+  }
+
   public get build(): boolean | string | IStoreConfig {
     if (this.hasConfiguration) {
       const result: IStoreConfig = {};
@@ -80,6 +87,10 @@ export class StoreBuilder {
         result.targets = this.targets;
       }
 
+      if (this.logging) {
+        result.logging = this.logging;
+      }
+
       return result;
 
     } else if (this.parent) {
@@ -91,7 +102,7 @@ export class StoreBuilder {
   }
 
   private get hasConfiguration(): boolean {
-    return !isNull(this.key) || !isNull(this.autoKey) || this.hasTargets;
+    return !isNull(this.key) || !isNull(this.autoKey) || this.hasTargets || !isNull(this.logging);
   }
 
   private get hasTargets(): boolean {
