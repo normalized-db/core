@@ -77,6 +77,7 @@ following options:
    (as it can be seen in the example below).
    The `eventSelection` can be optionally used to filter the events which should be logged. 
    `IStoreLogConfig`-instances can be built by using a `StoreLogBuilder`.
+   With the optional `keys`-property logged entities can be filtered by their primary keys.
    Logging is used by the `data-store`-module only.
    
 An example for such a `ISchemaConfig`-object for a simple blog could look like this:
@@ -107,7 +108,8 @@ const schemaConfig: ISchemaConfig = {
       role: 'role'
     },
     logging: {
-      eventSelection: ['created', 'removed']
+      eventSelection: ['created', 'removed'],
+      keys: ['admin', 'mmuster']
     }
   },
   article: {

@@ -1,10 +1,15 @@
 import { EventSelection, LogMode } from '../../model';
+import { ValidKey } from '../../model/index';
 import { IStoreLogConfig } from '../model';
 
 export class StoreLogBuilder {
 
+  private readonly keys: ValidKey[];
+
   constructor(private mode?: LogMode,
-              private eventSelection?: EventSelection) {
+              private eventSelection?: EventSelection,
+              keys?: ValidKey[] | Set<ValidKey>) {
+    this.keys = Array.isArray(keys) ? keys : [];
   }
 
   public setMode(value: LogMode): StoreLogBuilder {
@@ -17,10 +22,25 @@ export class StoreLogBuilder {
     return this;
   }
 
+  public addKey(value: ValidKey | ValidKey[]): StoreLogBuilder {
+    if (Array.isArray(value)) {
+      this.keys.push(...value);
+    } else {
+      this.keys.push(value);
+    }
+    return this;
+  }
+
   public build(): IStoreLogConfig {
-    return {
-      mode: this.mode || LogMode.Disabled,
-      eventSelection: this.eventSelection
-    };
+    const config: IStoreLogConfig = { mode: this.mode || LogMode.Disabled };
+    if (this.eventSelection) {
+      config.eventSelection = this.eventSelection;
+    }
+
+    if (this.keys && this.keys.length > 0) {
+      config.keys = this.keys;
+    }
+
+    return config;
   }
 }
