@@ -8,5 +8,5 @@ export * from './model';
 export {
   ISchema,
   Schema,
-  SchemaLogConfig,
+  SchemaLogConfig
 };
