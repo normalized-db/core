@@ -1,4 +1,4 @@
-import { ISchemaConfig } from '../../../lib/index';
+import { ISchemaConfig, LogMode } from '../../../lib/index';
 
 export const SCHEMA: ISchemaConfig = {
   _defaults: {
@@ -8,6 +8,9 @@ export const SCHEMA: ISchemaConfig = {
   _authored: {
     targets: {
       author: 'user'
+    },
+    logging: {
+      mode: LogMode.Simple
     }
   },
   role: true,
@@ -15,6 +18,10 @@ export const SCHEMA: ISchemaConfig = {
     key: 'userName',
     targets: {
       role: 'role'
+    },
+    logging: {
+      mode: LogMode.Disabled,
+      eventSelection: 'created'
     }
   },
   article: {
@@ -25,6 +32,10 @@ export const SCHEMA: ISchemaConfig = {
         cascadeRemoval: true,
         isArray: true
       }
+    },
+    logging: {
+      mode: LogMode.Full,
+      eventSelection: ['created', 'updated', 'removed']
     }
   },
   comment: '_authored'

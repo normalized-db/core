@@ -1,4 +1,4 @@
-import { ISchemaExpanded } from '../../../lib/index';
+import { ISchemaExpanded, LogMode } from '../../../lib/index';
 
 export const SCHEMA_EXPANDED: ISchemaExpanded = {
   user: {
@@ -7,12 +7,14 @@ export const SCHEMA_EXPANDED: ISchemaExpanded = {
     autoKey: true,
     targets: {
       role: { type: 'role' }
-    }
+    },
+    logging: { mode: LogMode.Disabled }
   },
   role: {
     key: 'id',
     autoKey: true,
     targets: {},
+    logging: { mode: LogMode.Disabled },
     type: 'role'
   }
 };
