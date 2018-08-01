@@ -1,9 +1,9 @@
-import { EventType, LogMode } from '../model';
+import { EventType, ILogConfig, LogMode } from '../model';
 import { StoreLogBuilder } from './builder/store-log-builder';
 import { IStoreLogConfig } from './model/store-log-config-interface';
 import { ISchema } from './schema-interface';
 
-export class SchemaLogConfig {
+export class SchemaLogConfig implements ILogConfig {
 
   constructor(private readonly _schema: ISchema) {
   }
