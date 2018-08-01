@@ -1,7 +1,8 @@
-import { IStore } from './model/store-interface';
-import { IStoreTargetItem } from './model/store-target-item-interface';
+import { IStore, IStoreTargetItem } from './model';
+import { SchemaLogConfig } from './schema-log-config';
 
 export interface ISchema {
+  getLogConfig(): SchemaLogConfig;
   hasType(type: string): boolean;
   getTypes(): string[];
   getConfig(type: string): IStore;

@@ -1,13 +1,16 @@
-import { deepClone } from '../utility/deep-clone';
-import { isNull } from '../utility/object';
-import { ISchemaConfig } from './model/schema-config-interface';
-import { ISchemaExpanded } from './model/schema-expanded-interface';
-import { IStoreConfig } from './model/store-config-interface';
-import { IStore } from './model/store-interface';
-import { IStoreTargetConfig } from './model/store-target-config-interface';
-import { IStoreTarget } from './model/store-target-interface';
-import { IStoreTargetItem } from './model/store-target-item-interface';
+import { deepClone, isNull } from '../utility';
+import { StoreLogBuilder } from './builder/store-log-builder';
+import {
+  ISchemaConfig,
+  ISchemaExpanded,
+  IStore,
+  IStoreConfig,
+  IStoreTarget,
+  IStoreTargetConfig,
+  IStoreTargetItem
+} from './model';
 import { ISchema } from './schema-interface';
+import { SchemaLogConfig } from './schema-log-config';
 
 export class Schema implements ISchema {
 
@@ -15,6 +18,8 @@ export class Schema implements ISchema {
 
   private readonly config: ISchemaExpanded;
   private readonly userConfig: ISchemaConfig;
+
+  private readonly logConfig: SchemaLogConfig;
 
   constructor(userConfig: ISchemaConfig) {
     this.config = {};
@@ -24,7 +29,13 @@ export class Schema implements ISchema {
     const keys = Object.keys(this.userConfig);
 
     keys.filter(type => !type.startsWith('_'))
-      .forEach(type => this.config[type] = this.expandSchemaForType(type));
+        .forEach(type => this.config[type] = this.expandSchemaForType(type));
+
+    this.logConfig = new SchemaLogConfig(this);
+  }
+
+  public getLogConfig(): SchemaLogConfig {
+    return this.logConfig;
   }
 
   public hasType(type: string): boolean {
@@ -90,9 +101,12 @@ export class Schema implements ISchema {
       const typeSchema = this.userConfig[type];
 
       if (type === Schema.TYPE_DEFAULTS) {
-        const defaults: IStoreConfig = this.userConfig[Schema.TYPE_DEFAULTS];
+        const defaults: IStoreConfig = this.userConfig[Schema.TYPE_DEFAULTS] || {};
         if (defaults.targets) {
           defaults.targets = this.expandTargets(defaults.targets);
+        }
+        if (!defaults.logging) {
+          defaults.logging = new StoreLogBuilder().build();
         }
 
         return deepClone(defaults);
@@ -118,16 +132,17 @@ export class Schema implements ISchema {
   }
 
   private mergeConfigs(type: string, typeConfig: IStoreConfig, parent: IStore): IStore {
-    const targets = Object.assign(parent.targets, typeConfig.targets);
     const autoKey = isNull(typeConfig.autoKey || null) ? parent.autoKey : typeConfig.autoKey;
-    const result: IStore = {
+    const targets = Object.assign(parent.targets, typeConfig.targets);
+    const logging = Object.assign(parent.logging, typeConfig.logging);
+
+    return {
       type: type,
       key: typeConfig.key || parent.key,
       autoKey: autoKey || false,
-      targets: this.expandTargets(targets)
+      targets: this.expandTargets(targets),
+      logging: logging
     };
-
-    return result;
   }
 
   private expandTargets(targetConfig: IStoreTargetConfig): IStoreTarget {
@@ -135,8 +150,8 @@ export class Schema implements ISchema {
     Object.keys(targetConfig).forEach(field => {
       const item = targetConfig[field];
       result[field] = typeof item === 'string'
-        ? { type: item }
-        : item;
+          ? { type: item }
+          : item;
     });
 
     return result;

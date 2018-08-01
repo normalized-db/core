@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { Schema, SchemaBuilder } from '../../lib/index';
+import { LogMode, Schema, SchemaBuilder, StoreLogBuilder } from '../../lib/index';
 
 import * as Blog from '../data/blog-post';
 import * as User from '../data/user';
@@ -14,11 +14,11 @@ describe('Schema-Builder', function () {
 
   it('User', function () {
     const schemaBuilder = new SchemaBuilder()
-      .setDefaultKey('id')
-      .setDefaultAutoKey(true);
+        .setDefaultKey('id')
+        .setDefaultAutoKey(true);
 
     schemaBuilder.setStore('user')
-      .setTarget('role', 'role');
+        .setTarget('role', 'role');
 
     schemaBuilder.setStore('role');
 
@@ -27,20 +27,33 @@ describe('Schema-Builder', function () {
 
   it('Blog Posts', function () {
     const schemaBuilder = new SchemaBuilder()
-      .setDefaultKey('id')
-      .setDefaultAutoKey(true);
+        .setDefaultKey('id')
+        .setDefaultAutoKey(true);
 
     schemaBuilder.setAbstractStore('authored')
-      .setTarget('author', 'user');
+        .setTarget('author', 'user')
+        .setLogging(new StoreLogBuilder(LogMode.Simple).build());
 
     schemaBuilder.setStore('role');
 
+    const userLogConfig = new StoreLogBuilder()
+        .setMode(LogMode.Disabled)
+        .setEventSelection( 'created')
+        .build();
+
     schemaBuilder.setStore('user')
-      .setKey('userName')
-      .setTarget('role', 'role');
+        .setKey('userName')
+        .setTarget('role', 'role')
+        .setLogging(userLogConfig);
+
+    const articleLogConfig = new StoreLogBuilder()
+        .setMode(LogMode.Full)
+        .setEventSelection(['created', 'updated', 'removed'])
+        .build();
 
     schemaBuilder.setStore('article', '_authored')
-      .setArrayTarget('comments', 'comment', true);
+        .setArrayTarget('comments', 'comment', true)
+        .setLogging(articleLogConfig);
 
     schemaBuilder.setStore('comment', '_authored');
 

@@ -1,3 +1,4 @@
+import { IStoreLog } from './store-log-interface';
 import { IStoreTarget } from './store-target-interface';
 
 export interface IStore {
@@ -5,4 +6,5 @@ export interface IStore {
   key?: string;
   autoKey?: boolean;
   targets?: IStoreTarget;
+  logging?: IStoreLog;
 }

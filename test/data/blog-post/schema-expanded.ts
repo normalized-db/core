@@ -1,10 +1,11 @@
-import { ISchemaExpanded } from '../../../lib/index';
+import { ISchemaExpanded, LogMode } from '../../../lib/index';
 
 export const SCHEMA_EXPANDED: ISchemaExpanded = {
   role: {
     key: 'id',
     autoKey: true,
     targets: {},
+    logging: { mode: LogMode.Disabled },
     type: 'role'
   },
   user: {
@@ -13,6 +14,10 @@ export const SCHEMA_EXPANDED: ISchemaExpanded = {
     autoKey: true,
     targets: {
       role: { type: 'role' }
+    },
+    logging: {
+      mode: LogMode.Disabled,
+      eventSelection: 'created'
     }
   },
   article: {
@@ -26,6 +31,10 @@ export const SCHEMA_EXPANDED: ISchemaExpanded = {
         cascadeRemoval: true,
         isArray: true
       }
+    },
+    logging: {
+      mode: LogMode.Full,
+      eventSelection: ['created', 'updated', 'removed']
     }
   },
   comment: {
@@ -34,6 +43,9 @@ export const SCHEMA_EXPANDED: ISchemaExpanded = {
     autoKey: true,
     targets: {
       author: { type: 'user' }
+    },
+    logging: {
+      mode: LogMode.Simple
     }
   }
 };

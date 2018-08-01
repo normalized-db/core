@@ -66,17 +66,37 @@ following options:
  - `autoKey` (boolean): If set to `true`, this option tells data stores to automatically generate an unique identifier
    for new objects without a key.
    
+ - `logging` (`IStoreLogConfig`): By using this option you can enable automatic logging for the store's entities.
+   The required `mode`-field specifies the mode, whereas `LogMode.Disabled` is used to disable logging at all, 
+   `LogMode.Simple` enables logging but includes only some meta information on the change including store, primary key, 
+   type of change (e.g. `created` or `removed`) and `LogMode.Full` basically does the same as `Simple` but it includes 
+   the changed object. So deciding whether to use `Simple` or `Full` is equal to making a trade-off between loss of 
+   information and a large logging store. 
+   By default, logging is disabled for each store which does not explicitly enable it or does not derive another 
+   preference from one of its parents. This of course can be changed by setting another mode in the `_defaults`-store
+   (as it can be seen in the example below).
+   The `eventSelection` can be optionally used to filter the events which should be logged. 
+   `IStoreLogConfig`-instances can be built by using a `StoreLogBuilder`.
+   Logging is used by the `data-store`-module only.
+   
 An example for such a `ISchemaConfig`-object for a simple blog could look like this:
 
 ```typescript
 const schemaConfig: ISchemaConfig = {
   _defaults: {
     key: 'id',
-    autoKey: true
+    autoKey: true,
+    logging: {
+      mode: LogMode.Simple,
+    }
   },
   _authored: {
     targets: {
       author: 'user'
+    },
+    logging: {
+      mode: LogMode.Full,
+      eventSelection: ['created', 'updated', 'removed', 'cleared']
     }
   },
   role: true,
@@ -85,6 +105,9 @@ const schemaConfig: ISchemaConfig = {
     autoKey: false,
     targets: {
       role: 'role'
+    },
+    logging: {
+      eventSelection: ['created', 'removed']
     }
   },
   article: {
