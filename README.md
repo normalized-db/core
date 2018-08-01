@@ -4,7 +4,7 @@ Core-module for related "normalized-db"-libraries providing common models and ut
 functions as well as the `Schema` (implemented with `TypeScript`).
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.5.0-beta.1
+ - **Version**: 2.5.0-beta.2
 
 ## Versioning
 
@@ -77,6 +77,7 @@ following options:
    (as it can be seen in the example below).
    The `eventSelection` can be optionally used to filter the events which should be logged. 
    `IStoreLogConfig`-instances can be built by using a `StoreLogBuilder`.
+   With the optional `keys`-property logged entities can be filtered by their primary keys.
    Logging is used by the `data-store`-module only.
    
 An example for such a `ISchemaConfig`-object for a simple blog could look like this:
@@ -107,7 +108,8 @@ const schemaConfig: ISchemaConfig = {
       role: 'role'
     },
     logging: {
-      eventSelection: ['created', 'removed']
+      eventSelection: ['created', 'removed'],
+      keys: ['admin', 'mmuster']
     }
   },
   article: {

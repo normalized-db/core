@@ -3,6 +3,7 @@ import { EventSelection } from './event-selection-type';
 import { EventType } from './event-type';
 import { FetchCallback } from './fetch-callback';
 import { KeyMap } from './key-map';
+import { ILogConfig } from './log-config-interface';
 import { LogMode } from './log-mode.enum';
 import { NdbDocument } from './ndb-document';
 import { NormalizedData } from './normalized-data';
@@ -16,6 +17,7 @@ export {
   EventType,
   FetchCallback,
   KeyMap,
+  ILogConfig,
   LogMode,
   NdbDocument,
   NormalizedData,

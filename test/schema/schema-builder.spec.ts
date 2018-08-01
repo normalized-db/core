@@ -39,6 +39,7 @@ describe('Schema-Builder', function () {
     const userLogConfig = new StoreLogBuilder()
         .setMode(LogMode.Disabled)
         .setEventSelection( 'created')
+        .addKey([1, 2])
         .build();
 
     schemaBuilder.setStore('user')

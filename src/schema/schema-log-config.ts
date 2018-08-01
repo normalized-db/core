@@ -1,9 +1,9 @@
-import { EventType, LogMode } from '../model';
+import { EventType, ILogConfig, LogMode, ValidKey } from '../model';
 import { StoreLogBuilder } from './builder/store-log-builder';
 import { IStoreLogConfig } from './model/store-log-config-interface';
 import { ISchema } from './schema-interface';
 
-export class SchemaLogConfig {
+export class SchemaLogConfig implements ILogConfig {
 
   constructor(private readonly _schema: ISchema) {
   }
@@ -31,16 +31,28 @@ export class SchemaLogConfig {
     return types && types.length > 0 ? types : orDefault;
   }
 
-  public isLoggingEnabled(type: string, eventType?: EventType): boolean {
+  public getKeys(type: string, orDefault?: ValidKey[]): ValidKey[] {
+    let keys: ValidKey[];
+    if (this._schema.hasType(type)) {
+      keys = this._schema.getConfig(type).logging.keys;
+    }
+    return keys && keys.length > 0 ? keys : orDefault;
+  }
+
+  public isLoggingEnabled(type: string, eventType?: EventType, key?: ValidKey): boolean {
     let isEnabled = this._schema.hasType(type);
     if (isEnabled) {
       const logConfig = this._schema.getConfig(type).logging;
       isEnabled = logConfig.mode !== LogMode.Disabled;
 
-      if (isEnabled && eventType) {
+      if (isEnabled && eventType && logConfig.eventSelection) {
         isEnabled = Array.isArray(logConfig.eventSelection)
-            ? logConfig.eventSelection.indexOf(eventType) >= 0
+            ? logConfig.eventSelection.length === 0 || logConfig.eventSelection.indexOf(eventType) >= 0
             : logConfig.eventSelection === eventType;
+      }
+
+      if (isEnabled && key && logConfig.keys && logConfig.keys.length > 0) {
+        isEnabled = logConfig.keys.indexOf(key) >= 0;
       }
     }
 

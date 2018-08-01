@@ -17,7 +17,8 @@ export const SCHEMA_EXPANDED: ISchemaExpanded = {
     },
     logging: {
       mode: LogMode.Disabled,
-      eventSelection: 'created'
+      eventSelection: 'created',
+      keys: [1, 2]
     }
   },
   article: {
