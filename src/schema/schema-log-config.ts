@@ -1,4 +1,5 @@
 import { EventType, ILogConfig, LogMode, ValidKey } from '../model';
+import { isNull } from '../utility/object';
 import { StoreLogBuilder } from './builder/store-log-builder';
 import { IStoreLogConfig } from './model/store-log-config-interface';
 import { ISchema } from './schema-interface';
@@ -51,7 +52,7 @@ export class SchemaLogConfig implements ILogConfig {
             : logConfig.eventSelection === eventType;
       }
 
-      if (isEnabled && key && logConfig.keys && logConfig.keys.length > 0) {
+      if (isEnabled && !isNull(key) && logConfig.keys && logConfig.keys.length > 0) {
         isEnabled = logConfig.keys.indexOf(key) >= 0;
       }
     }
