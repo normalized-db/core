@@ -4,7 +4,7 @@ Core-module for related "normalized-db"-libraries providing common models and ut
 functions as well as the `Schema` (implemented with `TypeScript`).
 
  - **Author**: Sandro Schmid ([saseb.schmid@gmail.com](<mailto:saseb.schmid@gmail.com>))
- - **Version**: 2.5.0-beta.3
+ - **Version**: 2.5.0-beta.4
 
 ## Versioning
 
@@ -67,10 +67,10 @@ following options:
    for new objects without a key.
    
  - `logging` (`IStoreLogConfig`): By using this option you can enable automatic logging for the store's entities.
-   The required `mode`-field specifies the mode, whereas `LogMode.Disabled` is used to disable logging at all, 
-   `LogMode.Simple` enables logging but includes only some meta information on the change including store, primary key, 
-   type of change (e.g. `created` or `removed`) and `LogMode.Full` basically does the same as `Simple` but it includes 
-   the changed object. So deciding whether to use `Simple` or `Full` is equal to making a trade-off between loss of 
+   The required `mode`-field specifies the mode, whereas `disabled` is used to disable logging at all, 
+   `simple` enables logging but includes only some meta information on the change including store, primary key, 
+   type of change (e.g. `created` or `removed`) and `full` basically does the same as `simple` but it includes 
+   the changed object. So deciding whether to use `simple` or `full` is equal to making a trade-off between loss of 
    information and a large logging store. 
    By default, logging is disabled for each store which does not explicitly enable it or does not derive another 
    preference from one of its parents. This of course can be changed by setting another mode in the `_defaults`-store
@@ -88,7 +88,7 @@ const schemaConfig: ISchemaConfig = {
     key: 'id',
     autoKey: true,
     logging: {
-      mode: LogMode.Simple,
+      mode: 'simple',
     }
   },
   _authored: {
@@ -96,7 +96,7 @@ const schemaConfig: ISchemaConfig = {
       author: 'user'
     },
     logging: {
-      mode: LogMode.Full,
+      mode: 'full',
       eventSelection: ['created', 'updated', 'removed', 'cleared']
     }
   },
