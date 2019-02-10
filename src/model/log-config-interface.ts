@@ -1,6 +1,6 @@
 import { IStoreLogConfig } from '../schema/model/store-log-config-interface';
 import { EventType } from './event-type';
-import { LogMode } from './log-mode.enum';
+import { LogMode } from './log-mode-type';
 import { ValidKey } from './valid-key';
 
 export interface ILogConfig {
@@ -14,4 +14,5 @@ export interface ILogConfig {
   getKeys(type: string, orDefault?: ValidKey[]): ValidKey[];
 
   isLoggingEnabled(type: string, eventType?: EventType, key?: ValidKey): boolean;
+
 }

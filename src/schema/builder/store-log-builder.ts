@@ -6,10 +6,17 @@ export class StoreLogBuilder {
 
   private readonly keys: ValidKey[];
 
-  constructor(private mode?: LogMode,
-              private eventSelection?: EventSelection,
-              keys?: ValidKey[] | Set<ValidKey>) {
-    this.keys = Array.isArray(keys) ? keys : [];
+  public constructor(private mode?: LogMode,
+                     private eventSelection?: EventSelection,
+                     keys?: ValidKey[] | Set<ValidKey>) {
+    if (keys instanceof Set) {
+      this.keys = [];
+      keys.forEach(k => this.keys.push(k));
+    } else if (Array.isArray(keys)) {
+      this.keys = keys;
+    } else {
+      this.keys = [];
+    }
   }
 
   public setMode(value: LogMode): StoreLogBuilder {
@@ -32,7 +39,7 @@ export class StoreLogBuilder {
   }
 
   public build(): IStoreLogConfig {
-    const config: IStoreLogConfig = { mode: this.mode || LogMode.Disabled };
+    const config: IStoreLogConfig = { mode: this.mode || 'disabled' };
     if (this.eventSelection) {
       config.eventSelection = this.eventSelection;
     }

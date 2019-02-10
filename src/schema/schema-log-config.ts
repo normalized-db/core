@@ -6,7 +6,7 @@ import { ISchema } from './schema-interface';
 
 export class SchemaLogConfig implements ILogConfig {
 
-  constructor(private readonly _schema: ISchema) {
+  public constructor(private readonly _schema: ISchema) {
   }
 
   public getConfig(type: string, orDefault?: IStoreLogConfig): IStoreLogConfig {
@@ -17,7 +17,7 @@ export class SchemaLogConfig implements ILogConfig {
     return config;
   }
 
-  public getLogMode(type: string, orDefault = LogMode.Disabled): LogMode {
+  public getLogMode(type: string, orDefault: LogMode = 'disabled'): LogMode {
     return this._schema.hasType(type)
         ? this._schema.getConfig(type).logging.mode
         : orDefault;
@@ -44,7 +44,7 @@ export class SchemaLogConfig implements ILogConfig {
     let isEnabled = this._schema.hasType(type);
     if (isEnabled) {
       const logConfig = this._schema.getConfig(type).logging;
-      isEnabled = logConfig.mode !== LogMode.Disabled;
+      isEnabled = logConfig.mode !== 'disabled';
 
       if (isEnabled && eventType && logConfig.eventSelection) {
         isEnabled = Array.isArray(logConfig.eventSelection)
