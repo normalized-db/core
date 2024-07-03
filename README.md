@@ -1,5 +1,8 @@
 # @normalized-db/core
 
+> [!WARNING]  
+> This project has been deprecated in favor of [@normalized-db/ndb](https://github.com/normalized-db/ndb).
+
 Core-module for related "normalized-db"-libraries providing common models and utility 
 functions as well as the `Schema` (implemented with `TypeScript`).
 
